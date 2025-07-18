@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Xyz Gems - Premium Jewellery Collection</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap');
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .heading-font {
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .jewellery-card:hover .jewellery-overlay {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .jewellery-overlay {
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        
+        .filter-btn.active {
+            background-color: #d4a373;
+            color: white;
+        }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: #d4a373;
+            border-radius: 10px;
+        }
+        
+        /* Animation for jewellery items */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .animate-fade-in {
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center">
+                <i class="fas fa-gem text-3xl text-amber-600 mr-2"></i>
+                <h1 class="heading-font text-2xl font-bold text-gray-800">Xyz Gems</h1>
+            </div>
+            <div class="hidden md:flex space-x-6">
+                <a href="#" class="text-gray-700 hover:text-amber-600 transition">Home</a>
+                <a href="#" class="text-gray-700 hover:text-amber-600 transition">Collections</a>
+                <a href="#" class="text-gray-700 hover:text-amber-600 transition">About</a>
+                <a href="#" class="text-gray-700 hover:text-amber-600 transition">Contact</a>
+            </div>
+            <div class="flex items-center">
+                <button class="md:hidden">
+                    <i class="fas fa-bars text-xl text-gray-700"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative h-96 bg-gradient-to-r from-amber-50 to-amber-100 flex items-center">
+        <div class="container mx-auto px-4 z-10">
+            <h1 class="heading-font text-4xl md:text-5xl lg:text-6xl font-bold text-gray-800 mb-4">Timeless Elegance</h1>
+            <p class="text-lg md:text-xl text-gray-600 max-w-2xl mb-8">Discover our exquisite collection of handcrafted jewellery, designed to celebrate life's precious moments.</p>
+            <button class="bg-amber-600 hover:bg-amber-700 text-white px-6 py-3 rounded-full font-medium transition shadow-lg">Explore Collections</button>
+        </div>
+        <div class="absolute bottom-0 right-0 opacity-20 md:opacity-30">
+            <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Diamond ring" class="h-96 object-cover">
+        </div>
+    </section>
+
+    <!-- Filter Section -->
+    <section class="py-8 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="heading-font text-2xl font-semibold text-center mb-8">Our Collections</h2>
+            <div class="flex flex-wrap justify-center gap-3 mb-8">
+                <button class="filter-btn active px-4 py-2 rounded-full border border-gray-200 hover:bg-amber-100 transition" data-filter="all">All</button>
+                <button class="filter-btn px-4 py-2 rounded-full border border-gray-200 hover:bg-amber-100 transition" data-filter="rings">Rings</button>
+                <button class="filter-btn px-4 py-2 rounded-full border border-gray-200 hover:bg-amber-100 transition" data-filter="necklaces">Necklaces</button>
+                <button class="filter-btn px-4 py-2 rounded-full border border-gray-200 hover:bg-amber-100 transition" data-filter="earrings">Earrings</button>
+                <button class="filter-btn px-4 py-2 rounded-full border border-gray-200 hover:bg-amber-100 transition" data-filter="bracelets">Bracelets</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Jewellery Grid -->
+    <section class="py-12 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8" id="jewellery-grid">
+                <!-- Jewellery items will be inserted here by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Collection -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 mb-8 md:mb-0 md:pr-8">
+                    <img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Featured Collection" class="rounded-lg shadow-xl w-full">
+                </div>
+                <div class="md:w-1/2">
+                    <span class="text-amber-600 font-medium">NEW COLLECTION</span>
+                    <h2 class="heading-font text-3xl md:text-4xl font-bold text-gray-800 mt-2 mb-4">Eternal Radiance</h2>
+                    <p class="text-gray-600 mb-6">Our latest collection features ethically sourced diamonds and precious metals, crafted with precision to create pieces that will be cherished for generations.</p>
+                    <div class="flex flex-wrap gap-4 mb-8">
+                        <div class="flex items-center">
+                            <i class="fas fa-gem text-amber-600 mr-2"></i>
+                            <span>100% Genuine Stones</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-certificate text-amber-600 mr-2"></i>
+                            <span>Hallmarked Quality</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-leaf text-amber-600 mr-2"></i>
+                            <span>Ethically Sourced</span>
+                        </div>
+                    </div>
+                    <button class="bg-amber-600 hover:bg-amber-700 text-white px-6 py-3 rounded-full font-medium transition shadow">View Collection</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="py-16 bg-amber-50">
+        <div class="container mx-auto px-4">
+            <h2 class="heading-font text-3xl font-bold text-center text-gray-800 mb-12">What Our Clients Say</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <div class="flex items-center mb-4">
+                        <div class="text-amber-500 mr-2">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 mb-4">"The craftsmanship of my engagement ring is exceptional. It's even more beautiful in person than in the photos."</p>
+                    <div class="flex items-center">
+                        <div class="h-10 w-10 rounded-full bg-gray-300 mr-3 overflow-hidden">
+                            <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Sarah J." class="h-full w-full object-cover">
+                        </div>
+                        <div>
+                            <h4 class="font-medium">Sarah J.</h4>
+                            <p class="text-sm text-gray-500">Verified Buyer</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <div class="flex items-center mb-4">
+                        <div class="text-amber-500 mr-2">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 mb-4">"I've purchased multiple pieces from LuxeGems and each one has been stunning. Their customer service is outstanding."</p>
+                    <div class="flex items-center">
+                        <div class="h-10 w-10 rounded-full bg-gray-300 mr-3 overflow-hidden">
+                            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Michael T." class="h-full w-full object-cover">
+                        </div>
+                        <div>
+                            <h4 class="font-medium">Michael T.</h4>
+                            <p class="text-sm text-gray-500">Verified Buyer</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <div class="flex items-center mb-4">
+                        <div class="text-amber-500 mr-2">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 mb-4">"The necklace I bought for my wife's anniversary was perfect. The packaging and presentation made it extra special."</p>
+                    <div class="flex items-center">
+                        <div class="h-10 w-10 rounded-full bg-gray-300 mr-3 overflow-hidden">
+                            <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="David K." class="h-full w-full object-cover">
+                        </div>
+                        <div>
+                            <h4 class="font-medium">David K.</h4>
+                            <p class="text-sm text-gray-500">Verified Buyer</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-gem text-2xl text-amber-600 mr-2"></i>
+                        <h3 class="heading-font text-xl font-bold">LuxeGems</h3>
+                    </div>
+                    <p class="text-gray-400">Crafting timeless jewellery that tells your unique story since 1995.</p>
+                    <div class="flex space-x-4 mt-4">
+                        <a href="#" class="text-gray-400 hover:text-amber-600 transition"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-amber-600 transition"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-amber-600 transition"><i class="fab fa-pinterest-p"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-amber-600 transition"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="heading-font text-lg font-semibold mb-4">Shop</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-amber-600 transition">All Jewellery</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-amber-600 transition">New Arrivals</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-amber-600 transition">Best Sellers</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-amber-600 transition">Sale</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-amber-600 transition">Gift Cards</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="heading-font text-lg font-semibold mb-4">About</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-amber-600 transition">Our Story</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-amber-600 transition">Sustainability</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-amber-600 transition">Blog</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-amber-600 transition">Careers</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-amber-600 transition">Press</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="heading-font text-lg font-semibold mb-4">Customer Care</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-amber-600 transition">Contact Us</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-amber-600 transition">FAQs</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-amber-600 transition">Shipping & Returns</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-amber-600 transition">Size Guide</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-amber-600 transition">Jewellery Care</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-500 text-sm mb-4 md:mb-0">© 2023 LuxeGems. All rights reserved.</p>
+                <div class="flex space-x-6">
+                    <a href="#" class="text-gray-500 hover:text-amber-600 transition text-sm">Privacy Policy</a>
+                    <a href="#" class="text-gray-500 hover:text-amber-600 transition text-sm">Terms of Service</a>
+                    <a href="#" class="text-gray-500 hover:text-amber-600 transition text-sm">Accessibility</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Jewellery data
+        const jewelleryData = [
+            {
+                id: 1,
+                name: "Diamond Solitaire Ring",
+                price: 1299,
+                category: "rings",
+                image: "https://images.unsplash.com/photo-1603974372535-71621d78ad0f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80",
+                description: "Classic solitaire ring with brilliant cut diamond in 18k white gold."
+            },
+            {
+                id: 2,
+                name: "Pearl Drop Earrings",
+                price: 349,
+                category: "earrings",
+                image: "https://images.unsplash.com/photo-1611591437281-460914d6e54f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80",
+                description: "Elegant freshwater pearl drop earrings with diamond accents."
+            },
+            {
+                id: 3,
+                name: "Emerald Tennis Bracelet",
+                price: 899,
+                category: "bracelets",
+                image: "https://images.unsplash.com/photo-1611591437918-ee9e8921c861?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80",
+                description: "Stunning emerald and diamond tennis bracelet in 14k yellow gold."
+            },
+            {
+                id: 4,
+                name: "Sapphire Pendant Necklace",
+                price: 599,
+                category: "necklaces",
+                image: "https://images.unsplash.com/photo-1602173574767-37ac01994b2a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80",
+                description: "Vivid blue sapphire center stone with diamond halo pendant."
+            },
+            {
+                id: 5,
+                name: "Infinity Love Ring",
+                price: 499,
+                category: "rings",
+                image: "https://images.unsplash.com/photo-1605100804763-247f67b3557e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
+                description: "Romantic infinity design with alternating diamonds in rose gold."
+            },
+            {
+                id: 6,
+                name: "Hoop Earrings with Diamonds",
+                price: 429,
+                category: "earrings",
+                image: "https://images.unsplash.com/photo-1602173574767-37ac01994b2a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80",
+                description: "Classic hoop earrings with pavé diamond detailing."
+            },
+            {
+                id: 7,
+                name: "Diamond Bangle Bracelet",
+                price: 799,
+                category: "bracelets",
+                image: "https://images.unsplash.com/photo-1605106715994-18eda3ad3194?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80",
+                description: "Solid gold bangle with channel set diamonds around the circumference."
+            },
+            {
+                id: 8,
+                name: "Layered Gold Necklaces",
+                price: 699,
+                category: "necklaces",
+                image: "https://images.unsplash.com/photo-1608042314451-fc8d9da2f8f9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80",
+                description: "Set of three delicate gold necklaces designed to be worn together."
+            }
+        ];
+
+        // Display jewellery items
+        const jewelleryGrid = document.getElementById('jewellery-grid');
+        
+        function displayJewellery(items) {
+            jewelleryGrid.innerHTML = '';
+            
+            items.forEach((item, index) => {
+                const itemElement = document.createElement('div');
+                itemElement.className = 'bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition animate-fade-in';
+                itemElement.style.animationDelay = `${index * 0.1}s`;
+                
+                itemElement.innerHTML = `
+                    <div class="relative overflow-hidden" style="padding-top: 100%;">
+                        <img src="${item.image}" alt="${item.name}" class="absolute top-0 left-0 w-full h-full object-cover">
+                        <div class="jewellery-overlay absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+                            <button class="bg-white text-amber-600 px-4 py-2 rounded-full font-medium hover:bg-amber-600 hover:text-white transition">
+                                Quick View
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-semibold text-lg text-gray-800 mb-1">${item.name}</h3>
+                        <p class="text-gray-500 text-sm mb-3">${item.description}</p>
+                        <div class="flex justify-start">
+                            <span class="font-bold text-gray-800">${item.price.toFixed(2)}</span>
+                        </div>
+                    </div>
+                `;
+                
+                jewelleryGrid.appendChild(itemElement);
+            });
+        }
+
+        // Filter jewellery
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove active class from all buttons
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                // Add active class to clicked button
+                button.classList.add('active');
+                
+                const filter = button.dataset.filter;
+                
+                if (filter === 'all') {
+                    displayJewellery(jewelleryData);
+                } else {
+                    const filteredItems = jewelleryData.filter(item => item.category === filter);
+                    displayJewellery(filteredItems);
+                }
+            });
+        });
+
+        // Initialize with all items
+        displayJewellery(jewelleryData);
+
+        // Quick view modal functionality would go here
+        // This is a simplified version - in a real app you would implement a modal
+    </script>
+</body>
+</html>
